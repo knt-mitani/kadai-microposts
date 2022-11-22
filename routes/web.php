@@ -32,13 +32,19 @@ Route::get('/dashboard', [MicropostsController::class, 'index'])->middleware(['a
 require __DIR__.'/auth.php';
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::group(['prefix' => 'users/{id}'], function () {                                          // 追記
-        Route::post('follow', [UserFollowController::class, 'store'])->name('user.follow');         // 追記
-        Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow'); // 追記
-        Route::get('followings', [UsersController::class, 'followings'])->name('users.followings'); // 追記
-        Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');    // 追記
+    Route::group(['prefix' => 'users/{id}'], function () {
+        Route::post('follow', [UserFollowController::class, 'store'])->name('user.follow');                 // フォローボタン押下時呼ばれる
+        Route::delete('unfollow', [UserFollowController::class, 'destroy'])->name('user.unfollow');         // アンフォローボタン押下時呼ばれる
+        Route::get('followings', [UsersController::class, 'followings'])->name('users.followings');         // フォロー一覧ページ表示処理
+        Route::get('followers', [UsersController::class, 'followers'])->name('users.followers');            // フォロワー一覧ページ表示処理
+        Route::get('favorites', [UsersController::class, 'favorites'])->name('users.favorites');            // お気に入り一覧表示処理
     });        
     
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
     Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
+    
+    Route::group(['prefix' => 'microposts/{id}'], function () {                                             // 追加
+        Route::post('favorites', [FavoritesController::class, 'store'])->name('favorites.favorite');        // 追加
+        Route::delete('unfavorite', [FavoritesController::class, 'destroy'])->name('favorites.unfavorite'); // 追加
+    });                                                                                                     // 追加
 });
