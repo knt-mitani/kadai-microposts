@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MicropostsController;
 use App\Http\Controllers\UserFollowController;
+use App\Http\Controllers\FavoritesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
     Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
     
-    Route::group(['prefix' => 'microposts/{id}'], function () {                                             // 追加
-        Route::post('favorites', [FavoritesController::class, 'store'])->name('favorites.favorite');        // 追加
-        Route::delete('unfavorite', [FavoritesController::class, 'destroy'])->name('favorites.unfavorite'); // 追加
-    });                                                                                                     // 追加
+    Route::group(['prefix' => 'microposts/{id}'], function () {
+        Route::post('favorites', [FavoritesController::class, 'store'])->name('favorites.favorite');        // お気に入り登録
+        Route::delete('unfavorite', [FavoritesController::class, 'destroy'])->name('favorites.unfavorite'); // お気に入り削除
+    });
 });
