@@ -18,8 +18,8 @@ class FavoritesController extends Controller
         $user = \Auth::user();
         if (!$user->is_favoriting($micropostId)) {
             $user->user_microposts()->attach($micropostId);
-            
         }
+
         return back();
     }
     
