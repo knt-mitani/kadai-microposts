@@ -8,6 +8,12 @@ use App\Models\Micropost;
 
 class MicropostsController extends Controller
 {
+    
+    /**
+     * 投稿一覧ページを表示するアクション
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $data = [];
@@ -26,6 +32,13 @@ class MicropostsController extends Controller
         return view('dashboard', $data);
     }
     
+    
+    /**
+     * micropostを登録するアクション。
+     *
+     * @param  $request post送信時のリクエスト
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         // バリデーション
@@ -42,6 +55,13 @@ class MicropostsController extends Controller
         return back();
     }
     
+    
+    /**
+     * micropostを削除するアクション。
+     *
+     * @param  $id micropostのid
+     * @return \Illuminate\Http\Response
+     */
     public function destroy($id)
     {
         // id値で投稿を検索して取得

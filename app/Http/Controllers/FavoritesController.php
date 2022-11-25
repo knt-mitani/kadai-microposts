@@ -8,9 +8,9 @@ use App\Models\Micropost;
 class FavoritesController extends Controller
 {
     /**
-     * ユーザをフォローするアクション。
+     * ユーザがお気に入り登録するアクション
      *
-     * @param  $id  相手ユーザのid
+     * @param  $micropostId  投稿記事のid
      * @return \Illuminate\Http\Response
      */
     public function store($micropostId)
@@ -24,9 +24,9 @@ class FavoritesController extends Controller
     }
     
     /**
-     * ユーザをアンフォローするアクション。
+     * ユーザのお気に入りを削除するアクション
      *
-     * @param  $id  相手ユーザのid
+     * @param  $micropostId  投稿記事のid
      * @return \Illuminate\Http\Response
      */
     public function destroy($micropostId)
